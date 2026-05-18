@@ -15,7 +15,7 @@ This repository contains the project brief, supplied Relux scenes, CAD reference
 | `Class Project 2026 - Brief.html` | Project brief (open in a browser). The canonical document. |
 | `2026 Project*.rdf` | Supplied Relux scenes (split into three sub-projects to reduce hardware load). |
 | `Car Dealership *.dwg` | Reference CAD drawings of the building and site. |
-| `.gitignore` | Excludes the local `Archive/` folder (historical files, backups, working drafts) from version control. |
+| `.gitignore` | Excludes the local `Archive/` folder (historical files and backups) from version control. |
 
 ## Submission
 
@@ -44,4 +44,4 @@ Submission and online recording provisions will be added as the project progress
 
 ## Status
 
-Working draft. The brief, results workbook and supporting tools are being iterated on through the project. Expect structural changes as the online submission system comes online.
+Shipped. The brief, supplied Relux scenes and CAD references are in. The online submission system will come online during the project and supersede file-share handoffs.
