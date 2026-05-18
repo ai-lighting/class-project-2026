@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class Project 2026 — Lighting Design &amp; Engineering</title>
+<style>
+  :root {
+    --ink: #1a1d24;
+    --muted: #5b6472;
+    --line: #e2e6ec;
+    --accent: #c8102e;
+    --accent-soft: #fdecef;
+    --bg: #ffffff;
+    --bg-soft: #f7f8fa;
+    --highlight: #fff8e1;
+    --note-bg: #eef4ff;
+    --note-border: #c8d8f5;
+    --warn-bg: #fff4e5;
+    --warn-border: #f0c894;
+    --info-bg: #e8f4ec;
+    --info-border: #b9d9c2;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Inter", "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg-soft);
+    margin: 0;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--bg);
+    padding: 48px 56px 64px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
+    border-radius: 6px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+
+  header.title {
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 20px;
+    margin-bottom: 36px;
+  }
+
+  header.title .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 30px;
+    line-height: 1.25;
+    margin: 0 0 6px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  h1 .subtitle {
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin: 44px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+
+  h3 {
+    font-size: 17px;
+    margin: 28px 0 10px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  p, li {
+    color: var(--ink);
+  }
+
+  ul {
+    padding-left: 22px;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  strong { color: var(--ink); }
+
+  code {
+    background: var(--bg-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "JetBrains Mono", Consolas, "SF Mono", Menlo, monospace;
+    font-size: 0.9em;
+    color: #b3261e;
+  }
+
+  /* Callout boxes */
+  .callout {
+    border-left: 4px solid;
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+
+  .callout p:first-child { margin-top: 0; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout.note   { background: var(--note-bg);  border-color: #4a6fa5; }
+  .callout.warn   { background: var(--warn-bg);  border-color: #d4791d; }
+  .callout.info   { background: var(--info-bg);  border-color: #3f8a5a; }
+  .callout.creative { background: var(--accent-soft); border-color: var(--accent); }
+
+  .callout .label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .callout.note .label    { color: #2c4979; }
+  .callout.warn .label    { color: #8a4612; }
+  .callout.info .label    { color: #2a6442; }
+  .callout.creative .label{ color: var(--accent); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 22px;
+    font-size: 14.5px;
+    background: var(--bg);
+  }
+
+  thead th {
+    background: #2d3340;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 13.5px;
+  }
+
+  tbody td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) { background: var(--bg-soft); }
+
+  tbody tr:hover { background: #f0f3f8; }
+
+  td:first-child {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* Quick-glance summary cards */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 22px 0 6px;
+  }
+
+  .card {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+
+  .card .card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .card .card-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px 22px;
+    margin: 24px 0 32px;
+    font-size: 14.5px;
+  }
+
+  .toc .toc-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .toc ol {
+    margin: 0;
+    padding-left: 20px;
+    columns: 2;
+    column-gap: 28px;
+  }
+
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .toc a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .wrap {
+      box-shadow: none;
+      max-width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    h2 { page-break-after: avoid; }
+    table, .callout, .card { page-break-inside: avoid; }
+  }
+
+  @media (max-width: 700px) {
+    .wrap { padding: 28px 22px; margin: 12px; }
+    h1 { font-size: 24px; }
+    .toc ol { columns: 1; }
+    table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="title">
+    <div class="eyebrow">Class Project 2026</div>
+    <h1>
+      Lighting Design &amp; Engineering Project
+      <span class="subtitle">Optimising lighting for a hypothetical car dealership</span>
+    </h1>
+  </header>
+
+  <div class="summary-grid">
+    <div class="card">
+      <div class="card-label">Software</div>
+      <div class="card-value">Relux + Compliance Calculator</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Primary Submission</div>
+      <div class="card-value">Relux export (<code>.recad</code>)</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Working Style</div>
+      <div class="card-value">Group sessions, individual sections</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Standards</div>
+      <div class="card-value">AS/NZS 1680.1 · 1158.3.1 · 2293.1 / .3</div>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#overview">Project Overview</a></li>
+      <li><a href="#scope">Project Scope</a></li>
+      <li><a href="#tech">Technical Requirements</a></li>
+      <li><a href="#software">Software &amp; Standards</a></li>
+      <li><a href="#deliverables">Deliverables &amp; Submission</a></li>
+      <li><a href="#criteria">Assessment Criteria</a></li>
+      <li><a href="#modelling">Modelling Notes</a></li>
+      <li><a href="#appendix">Appendix A — Exterior sub-categories</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. OVERVIEW -->
+  <h2 id="overview">1. Project Overview</h2>
+  <p>Design a complete, compliant lighting scheme for a hypothetical car dealership covering:</p>
+  <ul>
+    <li>Interior lighting (AS/NZS 1680.1)</li>
+    <li>Exterior pedestrian and car-park lighting (AS/NZS 1158.3.1)</li>
+    <li>Emergency lighting and exit signs (AS/NZS 2293.1)</li>
+    <li>Daylighting integration for the workshop</li>
+  </ul>
+  <p>Use <strong>Relux</strong> to model, analyse and document the design.</p>
+
+  <div class="callout note">
+    <span class="label">Working Style</span>
+    <p>We work through each topic together as a group during sessions. Each student takes ownership of the section(s) most relevant to their role or interest. Individual contributions come together as one cohesive scheme by the end of the project.</p>
+  </div>
+
+  <div class="callout info">
+    <span class="label">Evaluation &amp; Submission</span>
+    <p>The primary deliverable is a <strong>Relux export file (<code>.recad</code>)</strong>.</p>
+    <p>A <code>.recad</code> file is Relux's project export container. It bundles your project model, luminaire data, calculation surfaces and results into a single shareable file. It's produced from Relux via <em>File → Export → Relux Project (.recad)</em> and can be re-opened in any compatible Relux installation, so the marker can step through exactly what you built.</p>
+    <p><strong>Provisions for submitting work and recording results online will be provided</strong> as the project progresses. Until that's live, share files through the project channel.</p>
+  </div>
+
+  <div class="callout note">
+    <span class="label">AS/NZS 1158 Compliance</span>
+    <p>Verified using the <strong>Compliance Calculator</strong> tool, not by hand. It takes the photometric data and design layout and reports pass / fail against the standard.</p>
+  </div>
+
+  <div class="callout warn">
+    <span class="label">AS/NZS 4282 — Obtrusive Outdoor Light</span>
+    <p>Mentioned for completeness so you know it exists and applies in real practice. <strong>Not required as a deliverable for this project due to time.</strong></p>
+  </div>
+
+  <!-- 2. SCOPE -->
+  <h2 id="scope">2. Project Scope</h2>
+
+  <h3>2.1 Interior spaces</h3>
+  <p>Design the spaces below to AS/NZS 1680.1 maintained illuminance targets and uniformity criteria.</p>
+
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Space</th><th>Level</th><th>Activity</th><th>Target E<sub>m</sub></th></tr>
+    </thead>
+    <tbody>
+      <tr><td>R1</td><td>Warehouse / Workshop</td><td>Ground</td><td>Vehicle servicing</td><td>240–400 lx</td></tr>
+      <tr><td>R2</td><td>Open Office</td><td>Ground</td><td>Desk / VDT</td><td>320 lx</td></tr>
+      <tr><td>R3</td><td>Meeting Room</td><td>Ground</td><td>Meetings</td><td>320 lx</td></tr>
+      <tr><td>R4</td><td>Cupboard</td><td>Ground</td><td>Storage</td><td>80 lx</td></tr>
+      <tr><td>R5</td><td>Showroom</td><td>Ground</td><td>Vehicle display</td><td>Creative — see notes</td></tr>
+      <tr><td>R6</td><td>Lunch Room</td><td>Ground</td><td>Kitchenette</td><td>160 lx</td></tr>
+      <tr><td>R7–R10</td><td>Amenities &amp; WC Hall</td><td>Ground</td><td>Amenities / circulation</td><td>80 lx</td></tr>
+      <tr><td>R11</td><td>Open Office</td><td>Level 1</td><td>Desk / VDT</td><td>320 lx</td></tr>
+      <tr><td>R12–R15, R17</td><td>Enclosed Offices</td><td>Level 1</td><td>Office</td><td>320 lx</td></tr>
+      <tr><td>R16</td><td>Mezzanine</td><td>Level 1</td><td>Storage / access</td><td>240 lx</td></tr>
+      <tr><td>R18</td><td>Tea Room</td><td>Level 1</td><td>Kitchenette</td><td>160 lx</td></tr>
+      <tr><td>R19</td><td>Foyer</td><td>Level 1</td><td>Reception</td><td>240 lx</td></tr>
+      <tr><td>R20</td><td>Men's WC</td><td>Level 1</td><td>Amenities</td><td>80 lx</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout creative">
+    <span class="label">Showroom (R5) — Creative Brief</span>
+    <p>The showroom is part of the <strong>premade Relux scenes supplied with the project file</strong>. It is deliberately set up as an <strong>abstract space</strong> with plenty of opportunity for creative lighting design.</p>
+    <p>AS/NZS compliance is <strong>not the goal</strong> here. The brief is to express creative intent and apply it through Relux. Treat it as a design and visualisation exercise rather than a compliance task. Use it to explore accent vs ambient, vertical illuminance on vehicles, mood, colour temperature, layering, and any other creative tools Relux gives you.</p>
+  </div>
+
+  <div class="callout note">
+    <span class="label">Optional spaces</span>
+    <p><strong>Level 1 spaces</strong> are optional. If skipped, assume they mirror their ground-floor equivalents.</p>
+  </div>
+
+  <h3>2.2 Exterior spaces</h3>
+  <p>Design to AS/NZS 1158.3.1 Category P for car-park and pedestrian areas.</p>
+
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Area</th><th>Sub-cat</th><th>Mounting</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>E1</td><td>Main car-park</td><td>PC1</td><td>Poles or building</td><td>Customer parking</td></tr>
+      <tr><td>E2</td><td>Car display area</td><td>Display</td><td>Poles / building</td><td>Emphasise display, control spill</td></tr>
+      <tr><td>E3</td><td>Fenced storage yard</td><td>PC2</td><td>Building, 10 m, zero tilt</td><td>Asymmetric optics, no boundary spill</td></tr>
+      <tr><td>E4</td><td>Disability parking</td><td>PCD</td><td>As suited</td><td>Accessible bay emphasis</td></tr>
+      <tr><td>E5</td><td>Pedestrian crossings</td><td>PCX</td><td>As suited</td><td>Crossings of access roads only</td></tr>
+    </tbody>
+  </table>
+
+  <p>Lighting Technical Parameters (sub-category, MF, target levels) are in the project spreadsheet. Use those values and record achieved results. The Compliance Calculator tool will verify.</p>
+
+  <!-- 3. TECHNICAL -->
+  <h2 id="tech">3. Technical Requirements</h2>
+
+  <h3>3.1 Interior lighting <span style="font-weight:400;color:var(--muted);">(AS/NZS 1680.1)</span></h3>
+  <ul>
+    <li>Meet the E<sub>m</sub> target shown in the room table, and the U<sub>o</sub> (min / avg) value recommended by AS/NZS 1680.1 for the task type. State E<sub>m</sub> and U<sub>o</sub> achieved.</li>
+    <li>Choose fixtures based on photometric distribution (IES / ULD), not just nominal beam angle.</li>
+    <li>State your modelling assumptions in the form set out in Section 7.</li>
+  </ul>
+
+  <h3>3.2 Exterior lighting <span style="font-weight:400;color:var(--muted);">(AS/NZS 1158.3.1)</span></h3>
+  <ul>
+    <li>Meet Category P targets for the assigned sub-category.</li>
+    <li>Compliance is checked through the <strong>Compliance Calculator</strong> tool using photometric data and the design layout from Relux.</li>
+    <li>For E3, mount asymmetric optics at 10 m on the building with zero tilt unless you can justify otherwise.</li>
+  </ul>
+
+  <h3>3.3 Daylighting — Warehouse / Workshop (R1)</h3>
+  <ul>
+    <li>Use skylights to achieve maintained <strong>E<sub>m</sub> ≥ 600 lx</strong> and <strong>U<sub>o</sub> ≥ 0.6</strong> at the working plane under CIE overcast.</li>
+    <li>Set the Relux project location to Australia.</li>
+    <li>Simulate and document CIE overcast, CIE clear, and CIE clear with sun.</li>
+    <li>Briefly explain (a few sentences each): glare from sky exposure; shading or diffusion strategy; how electric lighting is dimmed or switched in response to daylight.</li>
+  </ul>
+
+  <h3>3.4 Emergency lighting &amp; exit signs <span style="font-weight:400;color:var(--muted);">(AS/NZS 2293.1 + 2293.3)</span></h3>
+  <ul>
+    <li>Show that the centreline path-of-travel illuminance required by AS/NZS 2293.1 is achieved at floor level along each escape route. Include a Relux plot along the path.</li>
+    <li>Select exit signs so that the sign's rated viewing distance under AS/NZS 2293.3 is greater than or equal to the longest line-of-sight from any decision point in the space.</li>
+    <li>State the system duration per AS/NZS 2293.1 (90 min standard).</li>
+    <li>For each emergency luminaire, state its AS/NZS 2293.3 classification (e.g. <code>C0</code>, <code>D80</code>) and the spacing / quantity that follows from its spacing table.</li>
+  </ul>
+
+  <!-- 4. SOFTWARE -->
+  <h2 id="software">4. Software &amp; Standards</h2>
+
+  <h3>Software</h3>
+  <ul>
+    <li><strong>Relux</strong> (project file supplied, split into three sub-projects to reduce hardware load).</li>
+    <li><strong>Compliance Calculator</strong> tool (for AS/NZS 1158 verification).</li>
+  </ul>
+
+  <h3>Standards</h3>
+  <ul>
+    <li>AS/NZS 1680.1 — Interior and workplace lighting</li>
+    <li>AS/NZS 1158.3.1 — Lighting for roads and public spaces (Category P)</li>
+    <li>AS/NZS 2293.1 and 2293.3 — Emergency lighting and exit signs</li>
+    <li>AS/NZS 4282:2023 — Control of obtrusive outdoor light <em>(referenced only; not required for this project)</em></li>
+    <li>NCC Section J — Energy efficiency <em>(handled by the Compliance Calculator, see note below)</em></li>
+  </ul>
+
+  <div class="callout note">
+    <span class="label">NCC Section J — Part J7 (Lighting)</span>
+    <p>Section J7 energy compliance is read directly from your <code>.recad</code> file by the Compliance Calculator: installed load (W and W/m²), control strategy and allowance check are derived automatically from the Relux model. You don't need to populate a separate energy spreadsheet by hand. Make sure your luminaires in Relux carry correct wattage data so the calculator can read it.</p>
+  </div>
+
+  <!-- 5. DELIVERABLES -->
+  <h2 id="deliverables">5. Deliverables &amp; Submission</h2>
+
+  <div class="callout info">
+    <span class="label">Submission Channel</span>
+    <p>The primary deliverable is the <strong>Relux export file (<code>.recad</code>)</strong>. <strong>Provisions for submitting work and recording results online will be provided</strong> as the project progresses. Until that's live, share files through the project channel.</p>
+  </div>
+
+  <h3>5.1 Relux export file <span style="font-weight:400;color:var(--muted);">(primary deliverable)</span></h3>
+  <ul>
+    <li>Export your Relux project as a <code>.recad</code> container via <em>File → Export → Relux Project (.recad)</em>. This bundles the model, luminaires, calculation surfaces and results into one shareable file.</li>
+    <li>The file shows your full design contribution and can be opened by the marker exactly as you built it.</li>
+    <li>Naming: <code>Surname_StudentID_DealershipLighting.recad</code></li>
+    <li>Don't change supplied room IDs.</li>
+  </ul>
+
+  <h3>5.2 Short assessment summary <span style="font-weight:400;color:var(--muted);">(one per space / area worked on)</span></h3>
+  <p>Keep it to roughly one page per space, structured under the same headings every time:</p>
+  <ul>
+    <li><strong>Target</strong> — E<sub>m</sub> / U<sub>o</sub> / category target from the brief.</li>
+    <li><strong>Achieved</strong> — E<sub>m</sub> / U<sub>o</sub> from the Relux calculation.</li>
+    <li><strong>Photometric justification</strong> — luminaire family, distribution type, optical control, CCT / CRI used.</li>
+    <li><strong>Controls</strong> — switching, occupancy / daylight sensors where relevant.</li>
+    <li><strong>Design considerations</strong> — aesthetics, function, sustainability.</li>
+    <li><strong>Non-compliances and mitigation</strong> — anything that doesn't hit target, and why / what you'd do.</li>
+  </ul>
+  <p>Format can be spreadsheet rows or a one-pager per area. Will move into the online submission system once it's ready.</p>
+
+  <h3>5.3 Daylighting summary <span style="font-weight:400;color:var(--muted);">(R1 only)</span></h3>
+  <ul>
+    <li>Skylight type, size and placement.</li>
+    <li>Simulation results under CIE overcast, clear and clear with sun.</li>
+    <li>E<sub>m</sub> and U<sub>o</sub> achieved under each sky.</li>
+    <li>Rationale for the daylight / electric-lighting interaction.</li>
+  </ul>
+
+  <h3>5.4 Emergency &amp; exit summary</h3>
+  <ul>
+    <li>Escape-route layout with the Relux centreline-illuminance plot.</li>
+    <li>Exit-sign selection table: viewing-distance class, pictogram, placement, decision points covered.</li>
+    <li>Per-luminaire AS/NZS 2293.3 classification, spacing table reference, achieved spacing and quantity.</li>
+    <li>System duration statement.</li>
+  </ul>
+
+  <h3>5.5 Relux design report (export)</h3>
+  <p>A concise PDF export from Relux showing calculation settings, targets vs achieved, key views, and the emergency / exit summary.</p>
+
+  <h3>5.6 File hygiene</h3>
+  <ul>
+    <li>Naming: <code>Surname_StudentID_DealershipLighting.recad</code>.</li>
+    <li>Versioning: include a version number and date in the Relux report and any accompanying summary file.</li>
+    <li>Don't rename or renumber the supplied room IDs.</li>
+  </ul>
+
+  <!-- 6. CRITERIA -->
+  <h2 id="criteria">6. Assessment Criteria</h2>
+  <ul>
+    <li><strong>Compliance</strong> with the AS/NZS standards relevant to your sections. Flag any non-compliances honestly with proposed mitigations.</li>
+    <li><strong>Technical accuracy</strong> of Relux results, traceable to the <code>.recad</code> file submitted.</li>
+    <li><strong>Design effectiveness.</strong> Fixture choice and placement justified by the luminaire's photometric distribution, beam angle and mounting context, with the justification recorded in the assessment summary.</li>
+    <li><strong>Energy performance.</strong> NCC Section J7 check passes when the Compliance Calculator reads your <code>.recad</code> file (luminaire wattage data must be present in the Relux model).</li>
+    <li><strong>Innovation &amp; creativity.</strong> Quality of the showroom concept and any optional Level 1 work; design intent stated.</li>
+    <li><strong>Documentation.</strong> The <code>.recad</code> file opens cleanly, calculation surfaces are named per the room IDs, and every space worked on has a one-page summary covering target, achieved and design intent.</li>
+    <li><strong>Contribution.</strong> Measured by what's visible in the section(s) you took on.</li>
+  </ul>
+
+  <!-- 7. MODELLING -->
+  <h2 id="modelling">7. Modelling Notes <span style="font-weight:400;font-size:15px;color:var(--muted);">(state in your submission)</span></h2>
+  <ul>
+    <li><strong>Workplane heights:</strong> 0.7 m for desks, 0.0 m for circulation. Adjust per space if needed.</li>
+    <li><strong>Grid spacing:</strong> tight enough to give usable resolution. Typical guidance: 0.25–0.5 m for small rooms, 0.5–1.0 m for larger spaces, ≥ 1.0 m for car parks. State the value you used.</li>
+    <li><strong>Maintenance factor (MF):</strong> state the MF used and the method (single-value or product-based).</li>
+    <li><strong>Per-luminaire data to report:</strong> CCT, CRI and rated wattage. The wattage is read by the Compliance Calculator for Section J7.</li>
+    <li><strong>Surface reflectances:</strong> state the values used for ceiling / walls / floor.</li>
+    <li><strong>Photometric sources:</strong> ReluxNet preferred so fittings can be swapped during suitability checks.</li>
+    <li><strong>Exterior tilt:</strong> 0° preferred for boundary control unless justified.</li>
+  </ul>
+
+  <!-- APPENDIX -->
+  <h2 id="appendix">Appendix A — Exterior sub-category mapping</h2>
+  <table>
+    <thead>
+      <tr><th>Code</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>PC1</td><td>Main customer car-park</td></tr>
+      <tr><td>PC2</td><td>Staff / fenced storage yard</td></tr>
+      <tr><td>PCD</td><td>Accessible parking</td></tr>
+      <tr><td>PCX</td><td>Pedestrian crossings over access roads (not parking aisles)</td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    Class Project 2026 · Brief v1.0
+  </footer>
+
+</div>
+
+</body>
+</html>

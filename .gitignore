@@ -1,0 +1,35 @@
+# Archived material
+Archive/
+
+# Backups
+*.backup-*
+*.bak
+*~
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.swp
+*.swo
+
+# Office lock files
+~$*
+
+# Python build artefacts (helper scripts)
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node / web (in case the brief site or tools spin up)
+node_modules/
+dist/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
